@@ -519,7 +519,7 @@ typedef struct
 static gboolean apply_pat (TsSegment *tssegment, GstMpegTsSection * section)
 {
     GPtrArray *pat;
-    GstMpegtsPatProgram *patp;
+    GstMpegTsPatProgram *patp;
 
     pat = gst_mpegts_section_get_pat (section);
     if (G_UNLIKELY (pat == NULL)) {
@@ -537,7 +537,7 @@ static gboolean apply_pat (TsSegment *tssegment, GstMpegTsSection * section)
 
 static gboolean apply_pmt (TsSegment *tssegment, GstMpegTsSection * section)
 {
-    const GstMpegtsPMT *pmt;
+    const GstMpegTsPMT *pmt;
     gint i;
 
     pmt = gst_mpegts_section_get_pmt (section);
@@ -557,7 +557,7 @@ static gboolean apply_pmt (TsSegment *tssegment, GstMpegTsSection * section)
     /* Ownership of pmt_info is given to the program */
     tssegment->pmt = pmt;
     for (i = 0; i < pmt->streams->len; ++i) {
-        GstMpegtsPMTStream *stream = g_ptr_array_index (pmt->streams, i);
+        GstMpegTsPMTStream *stream = g_ptr_array_index (pmt->streams, i);
         if (stream->stream_type == GST_MPEGTS_STREAM_TYPE_VIDEO_H264) {
             MPEGTS_BIT_SET (tssegment->is_pes, stream->pid);
             tssegment->video_pid = stream->pid;
@@ -570,7 +570,7 @@ static gboolean apply_pmt (TsSegment *tssegment, GstMpegTsSection * section)
 
 static void handle_psi (TsSegment *tssegment, TSPacket *packet)
 {
-    GstMpegtsSection *section;
+    GstMpegTsSection *section;
     gboolean post_message = TRUE;
 
     section = push_section (tssegment, packet);
