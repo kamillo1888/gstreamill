@@ -494,9 +494,9 @@ static TSPacketReturn next_ts_packet (TsSegment *tssegment, TSPacket *packet)
     }
 }
 
-static GstMpegtsSection *push_section (TsSegment *tssegment, TSPacket *packet)
+static GstMpegTsSection *push_section (TsSegment *tssegment, TSPacket *packet)
 {
-    GstMpegtsSection *section;
+    GstMpegTsSection *section;
     const guint8 *data;
     guint8 pointer = 0;
     guint section_length;
@@ -516,7 +516,7 @@ typedef struct
     guint16 pid;
 } PIDLookup;
 
-static gboolean apply_pat (TsSegment *tssegment, GstMpegtsSection * section)
+static gboolean apply_pat (TsSegment *tssegment, GstMpegTsSection * section)
 {
     GPtrArray *pat;
     GstMpegtsPatProgram *patp;
@@ -535,7 +535,7 @@ static gboolean apply_pat (TsSegment *tssegment, GstMpegtsSection * section)
     return TRUE;
 }
 
-static gboolean apply_pmt (TsSegment *tssegment, GstMpegtsSection * section)
+static gboolean apply_pmt (TsSegment *tssegment, GstMpegTsSection * section)
 {
     const GstMpegtsPMT *pmt;
     gint i;
